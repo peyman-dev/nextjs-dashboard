@@ -1,12 +1,6 @@
 "use client";
-import { verifyToken } from "@/utils/server/account-security";
 import React, { useEffect } from "react";
 
-export const signIn = async (token) => {
-  await verifyToken(token).then((res) => {
-    console.log(res);
-  });
-};
 
 export const AuthOptions = () => {
   useEffect(() => {
@@ -14,8 +8,8 @@ export const AuthOptions = () => {
       client_id:
         "435154377359-l3bdbugejk59d5cl2irsuj9ovfcvqml2.apps.googleusercontent.com",
       callback: async (res) => {
-        console.log(res)
-        await signIn(res.credential)
+        console.log(res);
+        // await signIn(res.credential);
       },
       ux_mode: "popup",
     });
@@ -23,7 +17,7 @@ export const AuthOptions = () => {
     google.accounts.id.renderButton(document.getElementById("oauth-button"), {
       theme: "outline",
       size: "large",
-      width: "100%",
+      width: "338px",
     });
   }, []);
 
@@ -36,3 +30,5 @@ export const AuthOptions = () => {
     </section>
   );
 };
+
+

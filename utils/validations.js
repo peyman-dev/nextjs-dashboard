@@ -11,4 +11,5 @@ export const registerSchema = z.object({
     email: z.string("Please enter your email address").email("Please enter a valid email address"),
     password: z.string("Please enter your password").min(8, "This field must be at least 8 characters long"),
     username: z.string("Please enter your username").min(4, "This field must be at least 4 characters long"),
+    isOAuth: z.boolean().default(false).optional()
 })

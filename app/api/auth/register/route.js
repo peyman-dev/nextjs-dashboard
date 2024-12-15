@@ -1,5 +1,5 @@
 import UserModel from "@/utils/models/user"
-import { units } from "@/utils/modules"
+import { setTokenCookie, units } from "@/utils/modules"
 import { createToken, hashPassword } from "@/utils/server/account-security"
 import connect from "@/utils/server/connect"
 import { registerSchema } from "@/utils/validations"
@@ -31,16 +31,16 @@ export const POST = async (req) => {
         if (isUserAlreadyExist) return NextResponse.json({
             message: "User already exist"
         }, {
-            status: 400
+            status: 409
         });
 
-        const token = await createToken(userInfos.email)
+        const token = await createToken(userInfos.email);
 
-            ; (await cookies()).set("token", token, {
-                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-                httpOnly: true,
-                path: "/"
-            })
+        (await cookies()).set("token", token, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+            httpOnly: true,
+            path: "/"
+        })
 
         const password = await hashPassword(userInfos.password)
 

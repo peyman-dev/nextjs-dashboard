@@ -7,7 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "#05004E",
+        secondary: "#64748b"
 
+      }
     },
   },
   plugins: [function ({ addVariant }) {

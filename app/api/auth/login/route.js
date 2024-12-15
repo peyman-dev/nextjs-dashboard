@@ -1,30 +1,69 @@
-import { loginSchema } from "@/utils/validations"
-import { NextResponse } from "next/server"
+import UserModel from "@/utils/models/user";
+import { comparePassword, createToken, setToken } from "@/utils/server/account-security";
+import connect from "@/utils/server/connect";
+import { loginSchema } from "@/utils/validations";
+import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
     try {
-        const data = await req.json()
-        const validate = await loginSchema.safeParse(data)
+        await connect()
+        const data = await req.json();
 
-        console.log(validate?.error?.format())
+        // Validate the request data against the schema
+        const validate = loginSchema.safeParse(data);
+        if (!validate.success) {
+            return NextResponse.json(
+                { message: "Invalid credentials" },
+                { status: 400 }
+            );
+        }
 
-        if (!validate.success) return NextResponse.json({
-            message: "Invalid credentials"
-        }, {
-            status: 400
+        const { idenitifier, password } = validate.data;
+
+        // Check if the user exists by email or username
+        const user = await UserModel.findOne({
+            $or: [
+                { email: idenitifier },
+                { username: idenitifier }
+            ]
         });
 
-        return NextResponse.json({
-            message: "User Logged In Successfully !",
-            data: validate.data
-        }, {
-            status: 201
+        if (!user) {
+            return NextResponse.json(
+                { message: "Invalid credentials" },
+                { status: 400 }
+            );
+        }
+
+        // Verify the provided password with the stored hashed password
+        const isPasswordCorrect = await comparePassword(password, user.password);
+
+        if (!isPasswordCorrect) {
+            return NextResponse.json(
+                { message: "Invalid credentials" },
+                { status: 400 }
+            );
+        }
+
+        const result = await setToken({
+            email: user.email,
         })
+
+        console.log(result)
+
+
+        // Respond with a success message if all checks pass
+        return NextResponse.json(
+            { message: "Login successful" },
+            { status: 200 }
+        );
+
     } catch (error) {
-        return NextResponse.json({
-            message: error.message
-        }, {
-            status: 500
-        })
+        // Handle unexpected errors
+        console.error("Error during login:", error);
+        return NextResponse.json(
+            { message: "An error occurred during login" },
+            { status: 500 }
+        );
     }
-}
+};

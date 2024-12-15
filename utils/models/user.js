@@ -26,8 +26,22 @@ const Schema = new mongoose.Schema({
         enum: ["ADMIN", "USER"],
         default: "USER"
     },
+    picture: {
+        type: String,
+        default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+
+    }
+}, {
+    timestamps: true
 })
 
 const UserModel = mongoose.models.User || mongoose.model("User", Schema)
+
+Schema.virtual("notifications", {
+    ref: "Notification",
+    localField: "_id",
+    foreignField: "user"
+}
+)
 
 export default UserModel

@@ -35,9 +35,14 @@ export const Login = () => {
 
   const submitted = async (data) => {
     try {
+      setIsLoading(true);
       const res = await app.post("/auth/login", data);
       console.log(res);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -124,9 +129,9 @@ export const Register = () => {
   return (
     <Suspense fallback={<div> Please wait ...</div>}>
       <form className="w-[340px]" onSubmit={handleSubmit(submitted)}>
-        <h1 className="text-xl font-extrabold">Sign in</h1>
+        <h1 className="text-xl font-extrabold">Sign up</h1>
         <p className="text-zinc-500 font-light text-sm mt-1">
-          Please login to continue to your account.
+          Hi, welcome! Sign up to continue.
         </p>
         <section className="mt-4 space-y-3">
           {inputs.map((input) => (
@@ -164,11 +169,11 @@ export const Register = () => {
           <FormButton pending={isLoading} />
         </div>
 
-        <AuthOptions />
+        <AuthOptions fetcher={""} />
         <div className="flex justify-center items-center mt-4 gap-1 text-xs text-slate-500">
-          <span>Already haven't an account?</span>
-          <Link href="/auth/register" className="text-blue-500">
-            Sign up
+          <span>Already have an account?</span>
+          <Link href="/auth/login" className="text-blue-500">
+            Sign in
           </Link>
         </div>
       </form>

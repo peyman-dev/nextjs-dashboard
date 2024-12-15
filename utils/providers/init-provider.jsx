@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Bounce } from "react-toastify";
 
 const InitProvider = ({ children }) => {
+
   return (
     <>
       <ToastContainer

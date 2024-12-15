@@ -1,4 +1,5 @@
 import { Login, Register } from "@/components/ui/form";
+import Loading from "@/components/ui/loading";
 import { exact } from "@/utils/modules";
 import React, { Suspense } from "react";
 
@@ -17,7 +18,7 @@ const page = async ({ params }) => {
   }
 
   return (
-    <Suspense fallback={<div> Loading </div>}>
+    <Suspense fallback={<Loading />}>
       {isLoginRoute ? <Login /> : <Register />}
     </Suspense>
   );
