@@ -5,10 +5,7 @@ import React from "react";
 
 const Product = (props) => {
   return (
-    <article
-      className="p-5  bg-white rounded"
-      id={units.uniqueID("product")}
-    >
+    <article className="p-5  bg-white rounded" id={units.uniqueID("product")}>
       <header>
         <img src={props.cover} alt="" />
       </header>
@@ -22,10 +19,10 @@ const Product = (props) => {
             <Heart className="size-4" />
           </button>
         </div>
-        <Stars filled={4}  />
+        <Stars filled={4} />
       </main>
       <footer>
-        <button className="text-blue-500 hover:bg-blue-500 duration-100 hover:text-white  bg-blue-500/10 rounded text-xs px-4 py-2 font-semibold">
+        <button onClick={props.manage} className="text-blue-500 hover:bg-blue-500 duration-100 hover:text-white  bg-blue-500/10 rounded text-xs px-4 py-2 font-semibold">
           Manage Product
         </button>
       </footer>

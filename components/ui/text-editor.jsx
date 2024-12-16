@@ -11,6 +11,8 @@ const TextEditor = ({ value, onChange }) => {
       onUpdate={(e) => {
         onChange(e.getHTML());
       }}
+      defaultValue={value}
+      disableLocalStorage={true}
     />
   );
 };

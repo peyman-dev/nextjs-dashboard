@@ -1,4 +1,5 @@
 import { useUser } from "@/utils/contexts/user-context";
+import { units } from "@/utils/modules";
 import Tippy from "@tippyjs/react";
 import classNames from "classnames";
 import { Bell, ChevronDown, CircleXIcon, Loader } from "lucide-react";
@@ -75,7 +76,7 @@ export const Notifications = () => {
         </div>
         <div className="my-3">
           {notifications.map((notif) => (
-            <div className="h-12  flex text-sm items-center bg-zinc-100 rounded-lg px-4">
+            <div key={units.uniqueID("notif")} className="h-12  flex text-sm items-center bg-zinc-100 rounded-lg px-4">
               :)
             </div>
           ))}

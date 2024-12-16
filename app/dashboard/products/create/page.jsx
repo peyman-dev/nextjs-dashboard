@@ -5,7 +5,9 @@ import TextEditor from "@/components/ui/text-editor";
 import { useUser } from "@/utils/contexts/user-context";
 import app from "@/utils/server/api";
 import { AlertCircle, AlertTriangle } from "lucide-react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const { user } = useUser();
@@ -34,7 +36,6 @@ const page = () => {
   };
 
   const createTheProduct = async () => {
-
     const formData = new FormData();
     formData.append("cover", file);
     formData.append("description", description);
@@ -46,18 +47,31 @@ const page = () => {
     formData.append("categories", JSON.stringify(cats));
 
     try {
-        const response = await app.post("/products", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data", // Explicitly set the content type
-            },
-        });
-        const data = response.data;
-        console.log(data);
-    } catch (error) {
-        console.error("Error creating the product:", error.response?.data || error.message);
-    }
-};
+      const response = await app.post("/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Explicitly set the content type
+        },
+      });
+      const data = response.data;
 
+      if (response.status == 201) {
+        toast.success("Product created successfully !", {
+          onClose: () => {
+            redirect("/dashboard/products");
+          },
+        });
+      } else {
+        toast.error("Something wen't wrong", {
+          onClose: () => window.location.reload(),
+        });
+      }
+    } catch (error) {
+      console.error(
+        "Error creating the product:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
   return (
     <>
@@ -110,7 +124,7 @@ const page = () => {
           </div>
           <HashtagsInput onChange={setCats} />
         </section>
-        <TextEditor onChange={setDescription} />
+        <TextEditor value={description} onChange={setDescription} />
 
         <button
           onClick={createTheProduct}
