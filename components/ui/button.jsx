@@ -92,7 +92,6 @@ export const Notifications = () => {
 
 export const Profile = () => {
   const { user } = useUser();
-  console.log(user);
 
   return (
     <div>

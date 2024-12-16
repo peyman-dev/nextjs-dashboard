@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import InitProvider from '@/utils/providers/init-provider'
 import { UserProvider } from '@/utils/contexts/user-context'
 import 'tippy.js/dist/tippy.css'; // optional
+import { Modal } from '@/components/ui/modal'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] })
 
@@ -13,15 +14,17 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
-  
+
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <UserProvider>
-          <InitProvider>
-            {children}
-          </InitProvider>
-        </UserProvider>
+        <Modal>
+          <UserProvider>
+            <InitProvider>
+              {children}
+            </InitProvider>
+          </UserProvider>
+        </Modal>
         <script src="https://accounts.google.com/gsi/client">
         </script>
       </body>

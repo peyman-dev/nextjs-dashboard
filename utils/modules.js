@@ -43,5 +43,6 @@ export const units = {
     },
     cleanString: function (string) {
         return String(string).toLowerCase().replace(/\s/g, '');
-    }
+    },
+    uniqueID: (title) => title + "-" + String(crypto.randomUUID()).slice(0,6) 
 }

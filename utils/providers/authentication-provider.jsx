@@ -1,7 +1,6 @@
 import React from "react";
 
 export function getServerSideProps(context) {
-  console.log(context);
 
   return {
     props: {

@@ -19,7 +19,7 @@ export const Sidebar = () => {
   );
 
   return (
-    <aside className="w-[300px] bg-white h-screen p-4">
+    <aside className="w-[300px] bg-white sticky top-0 h-screen p-4">
       <header>
         <WindowsLogo />
       </header>
@@ -35,7 +35,6 @@ export const Sidebar = () => {
         </NavLink>
         <NavLink
           href="/dashboard/products"
-          exact={true}
           className="flex items-center gap-3 h-12 w-full rounded px-4 text-[#737791]"
           activeClassName={active}
         >

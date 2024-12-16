@@ -8,9 +8,7 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       <section className="w-full">
         <Header />
-        <section className="m-10">
-        {children}
-        </section>
+        <section className="m-10">{children}</section>
       </section>
     </main>
   );
