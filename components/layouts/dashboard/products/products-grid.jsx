@@ -65,7 +65,7 @@ const ProductsGrid = ({ products }) => {
               </TableHeader>
               <TableBody>
                 {products.map((product) => (
-                  <TableRow key={product.product}>
+                  <TableRow key={product._id}>
                     <TableCell className="font-medium">
                       <div className="h-20 flex items-center">
                         <img src={product.cover} className="size-14" alt="" />

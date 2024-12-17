@@ -1,6 +1,7 @@
 import Stars from "@/components/ui/product-stars";
 import { units } from "@/utils/modules";
-import { Heart } from "lucide-react";
+import { Eye, Heart } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const Product = (props) => {
@@ -21,10 +22,19 @@ const Product = (props) => {
         </div>
         <Stars filled={4} />
       </main>
-      <footer>
-        <button onClick={props.manage} className="text-blue-500 hover:bg-blue-500 duration-100 hover:text-white  bg-blue-500/10 rounded text-xs px-4 py-2 font-semibold">
+      <footer className="w-full flex gap-1">
+        <button
+          onClick={props.manage}
+          className="text-blue-500 hover:bg-blue-500 duration-100 hover:text-white  bg-blue-500/10 rounded text-xs px-3 py-1 font-semibold"
+        >
           Manage Product
         </button>
+        <Link
+          className="text-blue-500 hover:bg-blue-500 duration-100 hover:text-white  bg-blue-500/10 rounded text-xs px-3 py-1 font-semibold"
+          href={"/product/" + props._id}
+        >
+          <Eye className="size-4"/>
+        </Link>
       </footer>
     </article>
   );

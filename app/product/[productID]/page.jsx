@@ -1,10 +1,15 @@
-import React from 'react'
+import { getProduct } from "@/app/actions";
+import { ArticleLayout } from "@/components/layouts/article-layout";
+import React from "react";
 
-const page =  ({params}) => {
-    console.log(params)
+const page = async ({ params }) => {
+  const { productID } = await params;
+  const product = await getProduct(productID)
+
+
   return (
-    <div>page</div>
-  )
-}
+    <ArticleLayout data={product}/>
+  );
+};
 
-export default page
+export default page;

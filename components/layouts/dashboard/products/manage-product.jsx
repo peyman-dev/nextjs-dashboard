@@ -14,13 +14,18 @@ const ManageProduct = ({ product }) => {
   const [cover, setCover] = useState(product.cover || "");
   const [categories, setCategories] = useState(product.categories || []);
 
+
   useEffect(() => {}, []);
 
   const submitted = async () => {
     const formData = new FormData();
+    
+
+    const isEmptyDesc = desc == "<p></p>";
+    
 
     formData.append("title", title);
-    formData.append("description", desc);
+    formData.append("description", isEmptyDesc ? product.description : desc);
     formData.append("price", price);
     formData.append("cover", cover);
     formData.append("id", product._id);

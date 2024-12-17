@@ -85,6 +85,11 @@ export const PUT = async (req) => {
             );
         }
 
+
+    
+        console.log(description)
+        
+        
         // Remove the current cover if it exists
         if (product.cover !== cover) {
             const oldCoverPath = path.join(

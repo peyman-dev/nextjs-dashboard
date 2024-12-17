@@ -29,9 +29,7 @@ export function UserProvider({ children }) {
     getMe();
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+
 
   return (
     <UserContext.Provider value={{ user, setUser, loading }}>
